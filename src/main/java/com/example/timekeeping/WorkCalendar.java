@@ -30,7 +30,7 @@ public class WorkCalendar {
         logger.info("----------------------------");
 
         while (!startDate.isAfter(endDate)) {
-            if (startDate.getDayOfWeek().getValue() <= 5) { // Monday to Friday
+            if (startDate.getDayOfWeek().getValue() <= 5) {
                 logger.info(startDate + ": Working day");
             } else {
                 logger.info(startDate + ": Weekend");
