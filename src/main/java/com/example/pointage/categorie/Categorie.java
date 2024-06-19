@@ -1,18 +1,22 @@
 package com.example.pointage.categorie;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
-public class Categorie {
+@ToString
+public abstract class Categorie {
     private String nom;
     private int heuresNormalesParSemaine;
     private double salaireParSemaine;
-    private double montantIndemnite;
-    public Categorie(String nom, int heuresNormalesParSemaine, double salaireParSemaine, double montantIndemnite) {
+
+    public Categorie(String nom, int heuresNormalesParSemaine, double salaireParSemaine) {
         this.nom = nom;
         this.heuresNormalesParSemaine = heuresNormalesParSemaine;
         this.salaireParSemaine = salaireParSemaine;
-        this.montantIndemnite = montantIndemnite;
+        calculerIndemnite();
     }
+    public abstract void calculerIndemnite();
+
 }
