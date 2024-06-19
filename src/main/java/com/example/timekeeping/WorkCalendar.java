@@ -42,4 +42,10 @@ public class WorkCalendar {
             logger.info(jourFerie + ": Holiday");
         }
     }
+
+    public static void main(String[] args) {
+        WorkCalendar workCalendar = new WorkCalendar();
+        workCalendar.printWorkCalendarForJune2024();
+        logger.info("Work calendar for June 2024 printed successfully.");
+    }
 }
