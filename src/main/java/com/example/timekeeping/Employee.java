@@ -4,6 +4,7 @@ import com.example.timekeeping.category.Category;
 import com.example.timekeeping.category.SeniorExecutive;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDate;
 
 @Getter
@@ -19,10 +20,11 @@ public class Employee {
     private double netSalary;
     private Category category;
     private WorkHours workHours;
+    private WorkCalendar workCalendar;
 
     public Employee(String firstName, String lastName, String employeeId, LocalDate birthDate,
                     LocalDate hireDate, LocalDate endDate, double grossSalary,
-                    Category category, WorkHours workHours) {
+                    Category category, WorkHours workHours, WorkCalendar workCalendar) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeId = employeeId;
@@ -33,6 +35,7 @@ public class Employee {
         this.category = category;
         this.netSalary = grossSalary * 0.8;
         this.workHours = workHours;
+        this.workCalendar = workCalendar;
     }
 
     public double calculateOvertimeAndSalary() {
