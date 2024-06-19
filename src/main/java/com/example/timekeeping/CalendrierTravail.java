@@ -1,4 +1,4 @@
-package com.example.pointage;
+package com.example.timekeeping;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;

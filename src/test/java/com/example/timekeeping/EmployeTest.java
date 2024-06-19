@@ -1,6 +1,6 @@
-package com.example.pointage;
+package com.example.timekeeping;
 
-import com.example.pointage.categorie.Categorie;
+import com.example.timekeeping.category.Categorie;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
