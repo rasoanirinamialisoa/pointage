@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeTest {
-
     @Test
     void testCalculHeuresSupplementaires() {
         Categorie categorieNormale = new Categorie("normal", 40, 100000, 0);

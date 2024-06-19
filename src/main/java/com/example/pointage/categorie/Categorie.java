@@ -17,6 +17,9 @@ public abstract class Categorie {
         this.salaireParSemaine = salaireParSemaine;
         calculerIndemnite();
     }
-    public abstract void calculerIndemnite();
+    public abstract int calculerIndemnite();
 
+    public double getTauxHoraire() {
+        return salaireParSemaine / heuresNormalesParSemaine;
+    }
 }
