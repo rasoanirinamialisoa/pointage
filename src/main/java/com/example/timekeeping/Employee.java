@@ -4,12 +4,19 @@ import com.example.timekeeping.category.Category;
 import com.example.timekeeping.category.SeniorExecutive;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 public class Employee {
+
+    private static final Logger logger = LogManager.getLogger(Employee.class);
     private String firstName;
     private String lastName;
     private String employeeId;
@@ -108,5 +115,67 @@ public class Employee {
                 ", Overtime Hours: " + workHours.getOvertimeHours() +
                 ", Premium Hours: " + workHours.getPremiumHours() +
                 ", Total Salary: " + calculateTotalSalary();
+    }
+
+    public static void main(String[] args) {
+        double hourlyRateRakoto = 10.0;
+        double hourlyRateRabe = 12.0;
+
+        int workingDaysRakoto = 22;
+        int workingDaysRabe = 22;
+
+        int hoursWorkedRakoto = workingDaysRakoto * 8;
+        int hoursWorkedRabe = workingDaysRabe * 8;
+
+        logger.info("Hours worked by Rakoto in June: " + hoursWorkedRakoto);
+        logger.info("Hours worked by Rabe in June: " + hoursWorkedRabe);
+
+        WorkHours rakotoWorkHours = new WorkHours(hoursWorkedRakoto, 0, 0);
+        WorkHours rabeWorkHours = new WorkHours(hoursWorkedRabe, 0, 0);
+
+        int overtimeHoursRakoto = Math.max(rakotoWorkHours.getNormalHours() - 176, 0);
+        int premiumHoursRakoto = calculatePremiumHours(LocalDate.of(2024, 6, 1), rakotoWorkHours.getNormalHours());
+
+        int overtimeHoursRabe = Math.max(rabeWorkHours.getNormalHours() - 176, 0);
+        int premiumHoursRabe = calculatePremiumHours(LocalDate.of(2024, 6, 1), rabeWorkHours.getNormalHours());
+
+        logger.info("Rakoto - Normal hours: " + rakotoWorkHours.getNormalHours() + ", Overtime hours: " + overtimeHoursRakoto + ", Premium hours: " + premiumHoursRakoto);
+        logger.info("Rabe - Normal hours: " + rabeWorkHours.getNormalHours() + ", Overtime hours: " + overtimeHoursRabe + ", Premium hours: " + premiumHoursRabe);
+
+        double paymentRakoto = rakotoWorkHours.getNormalHours() * hourlyRateRakoto
+                + overtimeHoursRakoto * hourlyRateRakoto * 1.3
+                + premiumHoursRakoto * hourlyRateRakoto * 1.5;
+
+        double paymentRabe = rabeWorkHours.getNormalHours() * hourlyRateRabe
+                + overtimeHoursRabe * hourlyRateRabe * 1.3
+                + premiumHoursRabe * hourlyRateRabe * 1.5;
+
+        logger.info("Payment for Rakoto: $" + paymentRakoto);
+        logger.info("Payment for Rabe: $" + paymentRabe);
+    }
+
+    private static int calculatePremiumHours(LocalDate date, int normalHours) {
+        Set<LocalDate> publicHolidays = new HashSet<>(Arrays.asList(
+                LocalDate.of(2024, 6, 17),
+                LocalDate.of(2024, 6, 25),
+                LocalDate.of(2024, 6, 26)
+        ));
+
+        int premiumHours = 0;
+        if (isNightWork(date)) {
+            premiumHours = normalHours;
+        }
+        if (date.getDayOfWeek().getValue() == 7) {
+            premiumHours = normalHours;
+        }
+
+        if (publicHolidays.contains(date)) {
+            premiumHours = normalHours;
+        }
+
+        return premiumHours;
+    }
+    private static boolean isNightWork(LocalDate date) {
+        return date.getYear() >= 20 || date.getYear() < 6;
     }
 }
